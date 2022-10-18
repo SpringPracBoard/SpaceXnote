@@ -1,48 +1,36 @@
 package com.example.spacexnote.entity;
 
-import com.example.spacexnote.dto.MemberFormDto;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
 
-@Entity
-@Table(name="member")
-@Getter @Setter
-@ToString
-
-public class Member {
+@Getter
+@NoArgsConstructor      //기본 생성자를 만들어줍니다.
+@AllArgsConstructor
+@Entity     //DB 테이블 역할을 합니다
+public class Member extends Timestamped {
 
     @Id
-    @Column(name="member_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)     //ID가 자동으로 생성 및 증가합니다.
     private Long id;
 
-    private String name;
+    // nullable: null 허용 여부
+    // unique: 중복 허용 여부 (false 일때 중복 허용)
+    @Column(nullable = false)
+    private String membername;
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
-    private String address;
-
-    @Enumerated(EnumType.STRING)
-
-    private Role role;
-
-    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
-        Member member = new Member();
-        member.setName(memberFormDto.getName());
-        member.setEmail(memberFormDto.getEmail());
-        member.setAddress(memberFormDto.getAddress());
-        String password = passwordEncoder.encode(memberFormDto.getPassword());
-        member.setPassword(password);
-        member.setRole(Role.USER);
-        return member;
-
+    public Member(String membername, String email, String password) {
+        this.membername = membername;
+        this.email = email;
+        this.password = password;
     }
-
 }
+
