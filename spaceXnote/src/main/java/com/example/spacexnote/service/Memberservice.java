@@ -1,29 +1,49 @@
-//package com.example.spacexnote.service;
-//
-//import com.example.spacexnote.dto.MemberRequestDto;
-//import com.example.spacexnote.repository.MemberRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public class Memberservice {
-//    private final PasswordEncoder passwordEncoder;
-//    private final MemberRepository memberRepository;
-//
-//    @Autowired
-//    public MemeberService(PasswordEncoder passwordEncoder, MemberRepository memberRepository) {
-//        this.passwordEncoder = passwordEncoder;
-//        this.memberRepository = memberRepository;
-//    }
-//
-//    public void registerUser(MemberRequestDto requestDto) {
-//        String membername = requestDto.getMembername();
-//        String email = requestDto.getEmail();
-//
-//        //패스워드 암호화
-//        String password = passwordEncoder.encode(requestDto.getPassword());
-//
-//        User user = new User(nickname, password, email);
-//        userRepository.save(user);
-//    }
-//}
+package com.example.spacexnote.service;
+
+import com.example.spacexnote.entity.Member;
+import com.example.spacexnote.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+
+public class MemberService implements UserDetailsService {
+
+    private final MemberRepository memberRepository;
+
+    public Member saveMember(Member member){
+        validateDuplicateMember(member);
+        return memberRepository.save(member);
+    }
+
+    private void validateDuplicateMember(Member member){
+        Member findMember = memberRepository.findByEmail(member.getEmail());
+        if(findMember != null){
+            throw new IllegalStateException("이미 가입된 회원입니다.");
+        }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member member = memberRepository.findByEmail(email);
+
+        if(member == null){
+            throw new UsernameNotFoundException(email);
+        }
+
+        return User.builder()
+                .username(member.getEmail())
+                .password(member.getPassword())
+                .roles(member.getRole().toString())
+                .build();
+
+    }
+
+}
