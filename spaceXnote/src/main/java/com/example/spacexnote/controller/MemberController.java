@@ -3,11 +3,13 @@ package com.example.spacexnote.controller;
 import com.example.spacexnote.dto.GlobalResDto;
 import com.example.spacexnote.dto.LoginReqDto;
 import com.example.spacexnote.dto.MemberRequestDto;
+import com.example.spacexnote.dto.MemberResponseDto;
 import com.example.spacexnote.jwt.util.JwtUtil;
 import com.example.spacexnote.security.UserDetailsImpl;
 import com.example.spacexnote.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +28,7 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/account/signup")
-    public GlobalResDto signup(@RequestBody @Valid MemberRequestDto memberRequestDto) {
+    public ResponseEntity<MemberResponseDto> signup(@RequestBody @Valid MemberRequestDto memberRequestDto) {
         return memberService.signup(memberRequestDto);
     }
 

@@ -43,6 +43,7 @@ public class PostService {
 
     public ResponseEntity<PostResponseDto> create(PostRequestDto postRequestDto, Member member) {
 
+        System.out.println("postRequestDto = " + postRequestDto + ", member = " + member);
         Post post = Post.builder()
                 .title(postRequestDto.getTitle())
                 .content(postRequestDto.getContent())

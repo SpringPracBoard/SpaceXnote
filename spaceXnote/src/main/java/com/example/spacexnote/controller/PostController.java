@@ -29,10 +29,10 @@ public class PostController {
     // 게시글 생성
     @PostMapping("/posts")
     public ResponseEntity<PostResponseDto> create(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        System.out.println("postRequestDto = " + postRequestDto);
+        System.out.println("postRequestDto = " + postRequestDto + ", userDetails = " + userDetails.getPassword());
         return postService.create(postRequestDto, userDetails.getMember());
     }
-
+    
     // 특정 게시글 조회
     @GetMapping("/posts/{id}")
     public ResponseEntity<PostResponseDto> show(@PathVariable Long id){
