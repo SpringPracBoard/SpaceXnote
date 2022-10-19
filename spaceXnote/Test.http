@@ -1,0 +1,24 @@
+GET http://localhost:8080/api/issue/token
+Accept: application/json
+Refresh_Token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3b25iaW5AbWFpbC5jb20iLCJleHAiOjE2NjYxODA1MjAsImlhdCI6MTY2NjE3NDUyMH0.oleAQ-PNu-zsKYeHwc0CPYjYm_zlizvtMFOfjkh6JCc
+X-Content-Type-Options: nosniff
+
+###
+POST http://localhost:8080/api/account/login
+Content-Type: application/json
+
+{
+  "email": "youngsung@mail.com",
+  "password": "youngsung1234"
+}
+
+###
+POST http://localhost:8080/api/account/signup
+Content-Type: application/json
+
+{
+  "membername": "youngsung",
+  "email": "youngsung@mail.com",
+  "password": "youngsung1234"
+}
+###

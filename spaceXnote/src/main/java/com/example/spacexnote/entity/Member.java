@@ -2,8 +2,8 @@
 package com.example.spacexnote.entity;
 
 import com.example.spacexnote.dto.MemberRequestDto;
-import com.example.spacexnote.entity.Timestamped;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor      //기본 생성자를 만들어줍니다.
 @AllArgsConstructor
+@Builder
 @Entity     //DB 테이블 역할을 합니다
 public class Member extends Timestamped {
 
