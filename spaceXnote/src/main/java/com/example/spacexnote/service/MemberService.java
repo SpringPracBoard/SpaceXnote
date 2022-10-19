@@ -3,6 +3,7 @@ package com.example.spacexnote.service;
 import com.example.spacexnote.dto.GlobalResDto;
 import com.example.spacexnote.dto.LoginReqDto;
 import com.example.spacexnote.dto.MemberRequestDto;
+import com.example.spacexnote.dto.MemberResponseDto;
 import com.example.spacexnote.entity.Member;
 import com.example.spacexnote.entity.RefreshToken;
 import com.example.spacexnote.jwt.dto.TokenDto;
@@ -11,6 +12,7 @@ import com.example.spacexnote.repository.MemberRepository;
 import com.example.spacexnote.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +30,7 @@ public class MemberService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public GlobalResDto signup(MemberRequestDto memberRequestDto) {
+    public ResponseEntity<MemberResponseDto> signup(MemberRequestDto memberRequestDto) {
         // email 중복 검사
         if(memberRepository.findByEmail(memberRequestDto.getEmail()).isPresent()){
             throw new RuntimeException("Overlap Check");
@@ -38,7 +40,7 @@ public class MemberService {
         Member member = new Member(memberRequestDto);
         //저장
         memberRepository.save(member);
-        return new GlobalResDto("Success signup", HttpStatus.OK.value());
+        return new ResponseEntity<>(new MemberResponseDto(memberRepository.save(member)), HttpStatus.OK);
     }
 
     @Transactional

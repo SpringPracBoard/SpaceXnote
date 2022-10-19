@@ -41,7 +41,7 @@ public class WebSecurityConfig {
         //우리는 다른 방식을 사용하겠다는 옵션
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.authorizeRequests().antMatchers("/api/account/**").permitAll()
+        http.authorizeRequests().antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterBefore(new JwtAuthFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
