@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
 public class CommentController {
@@ -47,15 +47,15 @@ public class CommentController {
     }
 
     //댓글 수정
-    @PutMapping("/post/{postId}/{commentId}") //put
-    public Long updateBoard(@PathVariable Long commentId, @RequestBody CommentRequestDto commentRequestDto) throws Exception {
+    @PutMapping("/post/{commentId}")
+    public Long updateComment(@PathVariable Long commentId, @RequestBody CommentRequestDto commentRequestDto) throws Exception {
         commentService.update(commentId, commentRequestDto);
         return commentId;
     }
 
 
     //댓글 삭제
-    @DeleteMapping("/post/{postId}/{commentId}") //delete
+    @DeleteMapping("/post/{commentId}")
     public Long deleteBoard(@PathVariable Long commentId) {
         commentRepository.deleteById(commentId);
         return commentId;
