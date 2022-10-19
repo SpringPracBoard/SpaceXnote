@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 !**/testdb.lock.db
+testdb.trace
+testdb.mv
+testdb.lock
 
 ### STS ###
 .apt_generated
