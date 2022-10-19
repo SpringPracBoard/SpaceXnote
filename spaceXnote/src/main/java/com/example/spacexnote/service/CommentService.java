@@ -4,7 +4,9 @@ import com.example.spacexnote.dto.CommentListResponseDto;
 import com.example.spacexnote.dto.CommentRequestDto;
 import com.example.spacexnote.dto.CommentResponseDto;
 import com.example.spacexnote.entity.Comment;
+import com.example.spacexnote.entity.Member;
 import com.example.spacexnote.repository.CommentRepository;
+import com.example.spacexnote.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -67,5 +69,14 @@ public class CommentService {
         );
 
         return ResponseEntity.ok(new CommentResponseDto(comment));
+    }
+
+    public Comment create(CommentRequestDto commentRequestDto, Member member) {
+//        Comment comment = CommentRepository.save(
+//                Comment.builder()
+//                        .comment(commentRequestDto.getComment())
+//                        .post(pos)
+//
+//        )
     }
 }

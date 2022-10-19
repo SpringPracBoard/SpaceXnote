@@ -5,9 +5,11 @@ import com.example.spacexnote.dto.CommentRequestDto;
 import com.example.spacexnote.dto.CommentResponseDto;
 import com.example.spacexnote.entity.Comment;
 import com.example.spacexnote.repository.CommentRepository;
+import com.example.spacexnote.security.UserDetailsImpl;
 import com.example.spacexnote.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,10 +29,10 @@ public class CommentController {
     //댓글 추가
 //    @PostMapping("/post/{postId}/comment")
     @PostMapping("/post/comment")
-    public Comment createComment(@RequestBody CommentRequestDto commentRequestDto) {
-        Comment comment = new Comment(commentRequestDto);
-        commentRepository.save(comment);
-        return comment;
+    public Comment createComment(@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+//        Comment comment = new Comment(commentRequestDto);
+        return commentService.create(commentRequestDto, userDetails.getMember());
+
     }
 
     //댓글 전체 보여주기
