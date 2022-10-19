@@ -32,21 +32,25 @@ public class MemberService {
     @Transactional
     public ResponseEntity<MemberResponseDto> signup(MemberRequestDto memberRequestDto) {
         // email 중복 검사
-        if(memberRepository.findByEmail(memberRequestDto.getEmail()).isPresent()){
-            throw new RuntimeException("Overlap Check");
+        if (memberRepository.findByEmail(memberRequestDto.getEmail()).isPresent()) {
+            throw new RuntimeException("중복된 이메일입니다.");
         }
         //패스워드 암호화는 법으로 정해져있다. 패스워드 인코딩
         memberRequestDto.setEncodePwd(passwordEncoder.encode(memberRequestDto.getPassword()));
-        Member member = new Member(memberRequestDto);
         //저장
-        memberRepository.save(member);
-        return new ResponseEntity<>(new MemberResponseDto(memberRepository.save(member)), HttpStatus.OK);
+        Member member1 = new Member().builder()
+                .membername(memberRequestDto.getMembername())
+                .password(passwordEncoder.encode(memberRequestDto.getPassword()))
+                .email(memberRequestDto.getEmail())
+                .build();
+
+        return new ResponseEntity<>(new MemberResponseDto(memberRepository.save(member1)), HttpStatus.OK);
     }
 
-    @Transactional
-    public GlobalResDto login(LoginReqDto loginReqDto, HttpServletResponse response) {
+        @Transactional
+        public GlobalResDto login(LoginReqDto loginReqDto, HttpServletResponse response) {
         //account가 있는지 확인
-        Member member =memberRepository.findByEmail(loginReqDto.getEmail()).orElseThrow(
+        Member member = memberRepository.findByEmail(loginReqDto.getEmail()).orElseThrow(
                 () -> new RuntimeException("Not found Account")
         );
         //account의 패스워드와 받아온 패스워드가 같은지 비교

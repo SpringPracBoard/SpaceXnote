@@ -29,8 +29,9 @@ public class MemberController {
 
 
     @PostMapping("/account/signup")
-    public ResponseEntity<MemberResponseDto> signup(@RequestBody @Valid MemberRequestDto dto){
-        return memberService.signup(dto);
+
+    public ResponseEntity<MemberResponseDto> signup(@RequestBody @Valid MemberRequestDto memberRequestDto) {
+        return memberService.signup(memberRequestDto);
     }
 
     @PostMapping("/account/login")
