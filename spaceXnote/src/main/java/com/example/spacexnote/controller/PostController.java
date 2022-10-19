@@ -3,6 +3,7 @@ package com.example.spacexnote.controller;
 
 import com.example.spacexnote.dto.PostRequestDto;
 import com.example.spacexnote.dto.PostResponseDto;
+import com.example.spacexnote.security.UserDetailsImpl;
 import com.example.spacexnote.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class PostController {
 
     // 게시글 생성
     @PostMapping("/posts")
-    public ResponseEntity<PostResponseDto> create(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDe1tailsImpl userDetails){
+    public ResponseEntity<PostResponseDto> create(@RequestBody PostRequestDto postRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         System.out.println("postRequestDto = " + postRequestDto);
         return postService.create(postRequestDto, userDetails.getMember());
     }

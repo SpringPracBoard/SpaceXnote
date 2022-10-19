@@ -4,6 +4,7 @@ import com.example.spacexnote.dto.CommentResponseDto;
 import com.example.spacexnote.dto.PostRequestDto;
 import com.example.spacexnote.dto.PostResponseDto;
 import com.example.spacexnote.entity.Comment;
+import com.example.spacexnote.entity.Member;
 import com.example.spacexnote.entity.Post;
 import com.example.spacexnote.repository.CommentRepository;
 import com.example.spacexnote.repository.PostRepository;
@@ -45,7 +46,7 @@ public class PostService {
         Post post = Post.builder()
                 .title(postRequestDto.getTitle())
                 .content(postRequestDto.getContent())
-                .membername(member.getMemberName())
+                .membername(member.getMembername())
                 .member(member)
                 .build();
 
@@ -61,13 +62,13 @@ public class PostService {
 
         PostResponseDto postResponseDto = new PostResponseDto(post);
 
-        List<Comment> comments = commentRepository.findAllByPost_Id(id);
-        List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
-
-        for (Comment c : comments) {
-            commentResponseDtoList.add(new CommentResponseDto(c));
-        }
-        postResponseDto.updateCommentDtoList(commentResponseDtoList);
+//        List<Comment> comments = commentRepository.findAllByPost_Id();
+//        List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
+//
+//        for (Comment c : comments) {
+//            commentResponseDtoList.add(new CommentResponseDto(c));
+//        }
+//        postResponseDto.updateCommentDtoList(commentResponseDtoList);
 
         return new ResponseEntity<>(postResponseDto, HttpStatus.OK);
 
@@ -79,7 +80,7 @@ public class PostService {
                 () -> new RuntimeException("삭제할 게시물이 없습니다.")
         );
 
-        if (!post.getMember().getMemberName().equals(member.getMemberName())) {
+        if (!post.getMember().getMembername().equals(member.getMembername())) {
             throw new RuntimeException("본인만 삭제 가능합니다.");
         }
 

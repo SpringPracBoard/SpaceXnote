@@ -1,6 +1,5 @@
 package com.example.spacexnote.dto;
 
-
 import com.example.spacexnote.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
