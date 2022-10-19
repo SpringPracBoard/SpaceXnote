@@ -60,6 +60,7 @@ public class CommentService {
 
     //Comment 1개 보여주기.
     public ResponseEntity<CommentResponseDto> comment(Long commentId) {
+        System.out.println("commentId = " + commentId);
 
         Comment comment = commentRepository.findById(commentId).orElseThrow(
                 () -> new IllegalArgumentException("댓글이 존재하지 않습니다.")
