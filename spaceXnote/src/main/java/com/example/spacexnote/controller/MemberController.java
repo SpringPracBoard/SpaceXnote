@@ -27,7 +27,9 @@ public class MemberController {
     private final JwtUtil jwtUtil;
     private final MemberService memberService;
 
+
     @PostMapping("/account/signup")
+
     public ResponseEntity<MemberResponseDto> signup(@RequestBody @Valid MemberRequestDto memberRequestDto) {
         return memberService.signup(memberRequestDto);
     }

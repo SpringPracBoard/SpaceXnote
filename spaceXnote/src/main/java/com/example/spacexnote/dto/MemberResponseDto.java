@@ -1,6 +1,5 @@
 package com.example.spacexnote.dto;
 
-
 import com.example.spacexnote.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +15,7 @@ public class MemberResponseDto {
     private String membername;
 
     private String email;
+
 
     public MemberResponseDto(Member member){
         this.membername = member.getMembername();

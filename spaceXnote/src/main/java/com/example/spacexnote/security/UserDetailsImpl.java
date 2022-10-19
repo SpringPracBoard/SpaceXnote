@@ -8,6 +8,10 @@ import java.util.Collection;
 
 public class UserDetailsImpl implements UserDetails {
 
+    public UserDetailsImpl(Member member) {
+        this.member = member;
+    }
+
     private Member member;
 
     public Member getMember() {
