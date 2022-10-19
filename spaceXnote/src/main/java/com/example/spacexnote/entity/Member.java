@@ -1,5 +1,6 @@
 package com.example.spacexnote.entity;
 
+import com.example.spacexnote.dto.MemberRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,10 +28,10 @@ public class Member extends Timestamped {
     @Column(nullable = false)
     private String password;
 
-    public Member(String membername, String email, String password) {
-        this.membername = membername;
-        this.email = email;
-        this.password = password;
+    public Member(MemberRequestDto memberRequestDto) {
+        this.membername = memberRequestDto.getMembername();
+        this.email = memberRequestDto.getEmail();
+        this.password = memberRequestDto.getPassword();
     }
 }
 

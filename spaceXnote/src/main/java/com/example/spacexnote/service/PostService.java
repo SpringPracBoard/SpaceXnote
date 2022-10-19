@@ -1,16 +1,10 @@
 package com.example.spacexnote.service;
 
-import com.example.demo.dto.requestDto.PostRequestDto;
-import com.example.demo.dto.responseDto.CommentResponseDto;
-import com.example.demo.dto.responseDto.PostResponseDto;
-import com.example.demo.entity.Comment;
-import com.example.demo.entity.Member;
-import com.example.demo.entity.Post;
-import com.example.demo.repository.CommentRepository;
-import com.example.demo.repository.PostRepository;
 import com.example.spacexnote.dto.CommentResponseDto;
+import com.example.spacexnote.dto.PostRequestDto;
 import com.example.spacexnote.dto.PostResponseDto;
 import com.example.spacexnote.entity.Comment;
+import com.example.spacexnote.entity.Post;
 import com.example.spacexnote.repository.CommentRepository;
 import com.example.spacexnote.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
