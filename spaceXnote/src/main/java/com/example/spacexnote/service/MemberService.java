@@ -30,21 +30,22 @@ public class MemberService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public ResponseEntity<MemberResponseDto> signup(MemberRequestDto memberRequestDto) {
+    public GlobalResDto signup(MemberRequestDto memberRequestDto) {
         // email 중복 검사
         if (memberRepository.findByEmail(memberRequestDto.getEmail()).isPresent()) {
             throw new RuntimeException("중복된 이메일입니다.");
         }
         //패스워드 암호화는 법으로 정해져있다. 패스워드 인코딩
-        memberRequestDto.setEncodePwd(passwordEncoder.encode(memberRequestDto.getPassword()));
+//        memberRequestDto.setEncodePwd(passwordEncoder.encode(memberRequestDto.getPassword()));
         //저장
-        Member member1 = new Member().builder()
+        Member member1 = Member.builder()
                 .membername(memberRequestDto.getMembername())
                 .password(passwordEncoder.encode(memberRequestDto.getPassword()))
                 .email(memberRequestDto.getEmail())
                 .build();
 
-        return new ResponseEntity<>(new MemberResponseDto(memberRepository.save(member1)), HttpStatus.OK);
+        memberRepository.save(member1);
+        return new GlobalResDto("Success signUp", HttpStatus.OK.value());
     }
 
         @Transactional
