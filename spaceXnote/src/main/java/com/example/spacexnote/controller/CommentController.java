@@ -3,17 +3,14 @@ package com.example.spacexnote.controller;
 import com.example.spacexnote.dto.CommentListResponseDto;
 import com.example.spacexnote.dto.CommentRequestDto;
 import com.example.spacexnote.dto.CommentResponseDto;
-import com.example.spacexnote.entity.Comment;
 import com.example.spacexnote.repository.CommentRepository;
 import com.example.spacexnote.security.UserDetailsImpl;
 import com.example.spacexnote.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,18 +24,14 @@ public class CommentController {
 
 
     //댓글 추가
-//    @PostMapping("/post/{postId}/comment")
     @PostMapping("/post/comment")
-    public Comment createComment(@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        Comment comment = new Comment(commentRequestDto);
+    public ResponseEntity<CommentResponseDto> createComment(@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return commentService.create(commentRequestDto, userDetails.getMember());
-
     }
 
     //댓글 전체 보여주기
     @GetMapping("/post/comment") //read (게시글 작성쪽 양식 가져오는 get요청)
     public CommentListResponseDto commentList() {
-
         return commentService.commentList();
     }
 
