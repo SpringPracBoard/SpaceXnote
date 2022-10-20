@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -19,7 +18,7 @@ public class Comment extends Timestamped {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    private Long commentId;
+    private Long Id;
     //commentId값 자동 생성.
 
 //    @Column(nullable = false)
