@@ -2,18 +2,18 @@ package com.example.spacexnote.entity;
 
 
 import com.example.spacexnote.dto.PostRequestDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Setter
 public class Post extends Timestamped {
 
     @Id
@@ -32,6 +32,14 @@ public class Post extends Timestamped {
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
+
+    @OneToMany
+    @JoinColumn(name = "like_id", nullable = false)
+    private List<Like> likeList = new ArrayList<>();
+
+    public void addLike(Like like) {
+        this.likeList.add(like);
+    }
 
     public void update(PostRequestDto requestDto, Member member) {
         if(!membername.equals(member.getMembername())){

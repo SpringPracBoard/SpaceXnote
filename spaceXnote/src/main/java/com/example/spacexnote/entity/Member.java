@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor      //기본 생성자를 만들어줍니다.
@@ -29,6 +31,22 @@ public class Member extends Timestamped {
 
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Post> postList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Like> likeList = new ArrayList<>();
+
+    public void addLike(Like like){
+        like.setMember(this);
+        this.likeList.add(like);
+    }
+
+    public void addPost(Post post){
+        this.postList.add(post);
+        post.setMember(this);
+    }
 
     public Member(MemberRequestDto memberRequestDto) {
         this.membername = memberRequestDto.getMembername();

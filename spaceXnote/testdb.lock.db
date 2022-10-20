@@ -1,6 +1,6 @@
 #FileLock
-#Thu Oct 20 04:06:41 KST 2022
-server=192.168.0.2\:61666
+#Thu Oct 20 17:01:38 KST 2022
+server=192.168.0.2\:49355
 hostName=DESKTOP-Q7A6LNB
 method=file
-id=183f17edab26bd53b4605242683f2f099075e14a8c6
+id=183f4697ea1e858ed76d3d634ff7e1fcf00ea92fb75
