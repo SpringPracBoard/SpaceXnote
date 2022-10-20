@@ -1,6 +1,6 @@
 GET http://localhost:8080/api/issue/token
 Accept: application/json
-Refresh_Token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3VuZ3N1bmdAbWFpbC5jb20iLCJleHAiOjE2NjY4MDMwMzcsImlhdCI6MTY2NjIwMzAzN30.1E1Lxe6F2RZoqzpuy8xo3Oh8P1NoXPoj16PoWscmPSQ
+Refresh_Token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ5b3VuZ3N1bmdAbWFpbC5jb20iLCJleHAiOjE2NjY4MzMwMzYsImlhdCI6MTY2NjIzMzAzNn0.uFlyp0mcbFbdNb0cnhxFktS9dYlNvGjjXRyiOe8U4fw
 X-Content-Type-Options: nosniff
 X-Content-Type-Options: nosniff
 

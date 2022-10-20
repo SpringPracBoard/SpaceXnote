@@ -63,13 +63,13 @@ public class PostService {
 
         PostResponseDto postResponseDto = new PostResponseDto(post);
 
-//        List<Comment> comments = commentRepository.findAllByPost_Id();
-//        List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
-//
-//        for (Comment c : comments) {
-//            commentResponseDtoList.add(new CommentResponseDto(c));
-//        }
-//        postResponseDto.updateCommentDtoList(commentResponseDtoList);
+        List<Comment> comments = commentRepository.findAllByPost_Id(id);
+        List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
+
+        for (Comment c : comments) {
+            commentResponseDtoList.add(new CommentResponseDto(c));
+        }
+        postResponseDto.updateCommentDtoList(commentResponseDtoList);
 
         return new ResponseEntity<>(postResponseDto, HttpStatus.OK);
 

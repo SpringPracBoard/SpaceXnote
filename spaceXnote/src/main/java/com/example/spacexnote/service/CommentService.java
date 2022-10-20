@@ -6,8 +6,9 @@ import com.example.spacexnote.dto.CommentResponseDto;
 import com.example.spacexnote.entity.Comment;
 import com.example.spacexnote.entity.Member;
 import com.example.spacexnote.repository.CommentRepository;
-import com.example.spacexnote.security.UserDetailsImpl;
+import com.example.spacexnote.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,8 @@ import java.util.List;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+
+    private final PostRepository postRepository;
 
     //댓글 생성해주는 메소드.
 //    public CommentRequestDto commentDto(Long commentId) {
@@ -41,7 +44,7 @@ public class CommentService {
 //            throw new Exception("비밀번호가 일치하지 않습니다.");
 //        } //exception으로 false일 경우 아예 이 위치 밖으로 내보냄. 즉, service에서 쫒겨나서 Controller로 감.
         comment.update(commentRequestDto);
-        return comment.getCommentId();
+        return comment.getId();
     }
 
 
@@ -71,12 +74,15 @@ public class CommentService {
         return ResponseEntity.ok(new CommentResponseDto(comment));
     }
 
-    public Comment create(CommentRequestDto commentRequestDto, Member member) {
-//        Comment comment = CommentRepository.save(
-//                Comment.builder()
-//                        .comment(commentRequestDto.getComment())
-//                        .post(pos)
-//
-//        )
+    @Transactional
+    public ResponseEntity<CommentResponseDto> create(CommentRequestDto commentRequestDto, Member member) {
+        System.out.println("commentRequestDto = " + commentRequestDto + ", member = " + member);
+        Comment comment = commentRepository.save(new Comment().builder()
+                .comment(commentRequestDto.getComment())
+                .post(postRepository.findById(commentRequestDto.getPostId()).orElseThrow(
+                        () -> new RuntimeException("댓글 아이디를 찾을 수 없습니다")))
+                .member(member)
+                .build());
+        return new ResponseEntity<>(new CommentResponseDto(comment), HttpStatus.OK);
     }
 }
